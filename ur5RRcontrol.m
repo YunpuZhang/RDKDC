@@ -13,7 +13,7 @@ while (true)
     t_err = norm(Xi(1:3));
     r_err = norm(Xi(4:6));
 
-    if (t_err > 5 && r_err > 15)
+    if (t_err < 5 && r_err < 15)
         finalerr = t_err;
         disp("Goal Reached within Tolerance");
         return;
