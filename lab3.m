@@ -25,10 +25,37 @@ ur5.move_joints(joint,5);
 
 error = 1e-2;
 
-q = [pi/3;pi/3;pi/3;pi/3;pi/3;pi/3];
+q = [pi/3;pi/3;pi/3;pi/3;pi/3;pi/6];
+fk = ur5FwdKin(q);
+% e1 = [1;0;0;0;0;0];
+% e2 = [0;1;0;0;0;0];
+% e3 = [0;0;1;0;0;0];
+% e4 = [0;0;0;1;0;0];
+% e5 = [0;0;0;0;1;0];
+% e6 = [0;0;0;0;0;1];
 
-q1 = q+error;
-q2 = q-error;
+e_n = eye(6);
+
+
+J_approx = zeros(6,6);
+
+for i = 1:6
+    q1 = q+error*e_n(:,i);
+    q2 = q-error*e_n(:,i);
+
+    g1 = ur5FwdKin(q1);
+    g2 = ur5FwdKin(q2);
+
+    d_i = (g1-g2)/(2*error);
+    Xi_i_hat = fk\d_i;
+
+    Xi_i = [Xi_i_hat(1:3,4);Xi_i_hat(3,2);Xi_i_hat(1,3);Xi_i_hat(2,1)];
+
+    J_approx(:,i) = Xi_i;
+    
+end
+J = ur5BodyJacobian(q);
+norm(J_approx-J)
 
 
 
