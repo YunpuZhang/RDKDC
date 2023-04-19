@@ -26,7 +26,7 @@ while (true)
         disp("ABORT");
         return
     end
-    q_k1 = q_k - K*T_step*(Jb_qk\Xi);
+    q_k1 = qk - K*T_step*(J\Xi);
 
     ur5.move_joints(q_k1, T_step);
     pause(T_step);
