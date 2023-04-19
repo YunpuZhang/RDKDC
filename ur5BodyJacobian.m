@@ -37,6 +37,6 @@ Xi3 = [q3;w3];
 Xi4 = [q4;w4];
 Xi5 = [q5;w5];
 Xi6 = [q6;w6];
-Js = [Xi1 Adjoint(rot1)*Xi2 Adjoint(rot1*rot2)*Xi3 Adjoint(rot1*rot2*rot3)*Xi4 Adjoint(rot1*rot2*rot3*rot4)*Xi5 Adjoint(rot1*rot2*rot3*rot4*rot5)*Xi6];
-Jb = Adjoint(fk)^(-1)*Js;
+Js = [Xi1 Adj(rot1)*Xi2 Adj(rot1*rot2)*Xi3 Adj(rot1*rot2*rot3)*Xi4 Adj(rot1*rot2*rot3*rot4)*Xi5 Adj(rot1*rot2*rot3*rot4*rot5)*Xi6];
+Jb = Adj(fk)^(-1)*Js;
 end
