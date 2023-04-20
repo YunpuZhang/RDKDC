@@ -121,13 +121,21 @@ twist_rot = [w_hat v;
 res = expm(twist_rot)
 
 %% Test RRcontrol
-
-test_frame.move_frame('base_link',fk_test);
-K = 0.05;
 test = [pi/6;pi/6;pi/6;pi/6;pi/6;pi/6];
-fk_test = ur5FwdKin(test);
-
+ur5.move_joints(test,5);
+pause(5);
+K = 0.05;
+test_1 = [pi/7;pi/6;pi/6;pi/6;pi/6;pi/6];
+fk_test = ur5FwdKin(test_1);
+test_frame.move_frame('base_link',fk_test);
 err = ur5RRcontrol(fk_test,K,ur5);
 
-
-
+%% Test RRcontrol--Abort
+test = [pi/6;pi/6;0.1;pi/6;pi/6;pi/6];
+ur5.move_joints(test,5);
+pause(5);
+K = 0.05;
+test_1 = [-pi/5;-pi/6;-0.1;-pi/6;-pi/6;-pi/6];
+fk_test = ur5FwdKin(test_1);
+test_frame.move_frame('base_link',fk_test);
+err = ur5RRcontrol(fk_test,K,ur5);
